@@ -56,9 +56,17 @@ test:
     - {{ pytestcmd }} tests/pytest -p pytester --runpytest subprocess
 
 about:
-  home: https://github.com/HypothesisWorks/hypothesis-python
+  home: http://hypothesis.works
   license: MPL 2.0
+  license_family: Other
   summary: 'A library for property based testing'
+  description: |
+      Hypothesis is an advanced testing library for Python. It lets you write
+      tests which are parametrized by a source of examples, and then generates
+      simple and comprehensible examples that make your tests fail. This lets
+      you find more bugs in your code with less work.
+  dev_url: https://github.com/HypothesisWorks/hypothesis-python
+  doc_url: https://hypothesis.readthedocs.io/
 
 extra:
   recipe-maintainers:
