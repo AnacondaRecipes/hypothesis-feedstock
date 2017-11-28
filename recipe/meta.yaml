@@ -1,6 +1,6 @@
 {% set pkgname = "hypothesis" %}
-{% set version = "3.37.0" %}
-{% set sha256 = "890b4f6476e31c4e49eaf8504f00384d203ada7c4b714f3d068d976037f5598d" %}
+{% set version = "3.38.5" %}
+{% set sha256 = "fb6986e6b46c43cefe10cd0f0f3a7a792ad89de3fb5e2b1f8837c8cbb9b93dce" %}
 
 package:
   name: {{ pkgname }}
@@ -12,7 +12,7 @@ source:
   sha256: {{ sha256 }}
 
 build:
-  number: 1
+  number: 0
   script: python setup.py install --single-version-externally-managed --record record.txt
 
 requirements:
@@ -38,6 +38,7 @@ test:
     - mock
     - flaky
     - ipaddress  # [py2k]
+    - git  # [win]
   imports:
     - hypothesis
     - hypothesis.extra
@@ -58,6 +59,7 @@ test:
 about:
   home: http://hypothesis.works
   license: MPL 2.0
+  license_family: Other
   summary: 'A library for property based testing'
   description: |
       Hypothesis is an advanced testing library for Python. It lets you write
