@@ -25,35 +25,35 @@ requirements:
     - coverage
     - enum34  # [py<34]
 
-{% set pytestcmd = "python -m pytest " %}  
-{% set pytestcmd = "python -m pytest -n 0 " %}  # [py35]
+# {% set pytestcmd = "python -m pytest " %}
+# {% set pytestcmd = "python -m pytest -n 0 " %}  # [py35]
 
 test:
-  requires:
-    - pytest-xdist
-    - numpy
-    - pandas
-    - pytz
-    - faker
-    - mock
-    - flaky
-    - ipaddress  # [py2k]
-  imports:
+#   requires:
+#     - pytest-xdist
+#     - numpy
+#     - pandas
+#     - pytz
+#     - faker
+#     - mock
+#     - flaky
+#     - ipaddress  # [py2k]
+   imports:
     - hypothesis
     - hypothesis.extra
     - hypothesis.strategies
     - hypothesis.stateful
-  commands:
-    - git clone https://github.com/HypothesisWorks/hypothesis-python.git src
-    - cd src
-    - {{ pytestcmd }} tests/cover
-    - {{ pytestcmd }} tests/datetime
-    - {{ pytestcmd }} tests/fakefactory
-    - {{ pytestcmd }} tests/numpy
-    - {{ pytestcmd }} tests/pandas
-    - {{ pytestcmd }} tests/py2  # [py2k]
-    - {{ pytestcmd }} tests/py3  # [py3k]
-    - {{ pytestcmd }} tests/pytest -p pytester --runpytest subprocess
+#  commands:
+#    - git clone https://github.com/HypothesisWorks/hypothesis-python.git src
+#    - cd src
+#    - {{ pytestcmd }} tests/cover
+#    - {{ pytestcmd }} tests/datetime
+#    - {{ pytestcmd }} tests/fakefactory
+#    - {{ pytestcmd }} tests/numpy
+#    - {{ pytestcmd }} tests/pandas
+#    - {{ pytestcmd }} tests/py2  # [py2k]
+#    - {{ pytestcmd }} tests/py3  # [py3k]
+#    - {{ pytestcmd }} tests/pytest -p pytester --runpytest subprocess
 
 about:
   home: http://hypothesis.works
@@ -72,4 +72,5 @@ extra:
   recipe-maintainers:
     - ericmjl
     - jochym
+    - mingwandroid
     - tadeu
