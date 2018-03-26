@@ -21,7 +21,7 @@ requirements:
     - setuptools
   run:
     - python
-    - attrs
+    - attrs >=16.0.0
     - coverage
     - enum34  # [py<34]
 
