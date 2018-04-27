@@ -1,0 +1,36 @@
+--- work.orig/src/hypothesis/strategies.py	2018-04-27 15:56:32.000000000 -0700
++++ work/src/hypothesis/strategies.py	2018-04-27 15:59:55.000000000 -0700
+@@ -1067,6 +1067,11 @@
+     from hypothesis.searchstrategy import types
+     try:
+         import typing
++        # Since https://github.com/python/cpython/commit/d911e40e788fb679723d78b6ea11cabf46caed5a
++        if hasattr(typing, '_ForwardRef'):
++            typing_ForwardRef = typing._ForwardRef
++        else:
++            typing_ForwardRef = typing.ForwardRef
+         if not isinstance(thing, type):
+             # At runtime, `typing.NewType` returns an identity function rather
+             # than an actual type, but we can check that for a possible match
+@@ -1083,7 +1088,7 @@
+                 return one_of([from_type(t) for t in args])
+         # We can't resolve forward references, and under Python 3.5 (only)
+         # a forward reference is an instance of type.  Hence, explicit check:
+-        elif type(thing) == typing._ForwardRef:  # pragma: no cover
++        elif type(thing) == typing_ForwardRef:  # pragma: no cover
+             raise ResolutionFailed(
+                 'thing=%s cannot be resolved.  Upgrading to python>=3.6 may '
+                 'fix this problem via improvements to the typing module.'
+@@ -1112,7 +1117,11 @@
+     # subclass and instance checks.
+     try:
+         import typing
+-        if isinstance(thing, typing.TypingMeta):
++        if hasattr(typing, 'TypingMeta'):
++            typing_TypeVar = typing.TypingMeta
++        else:
++            typing_TypeVar = typing.TypeVar
++        if isinstance(thing, typing_TypeVar):
+             return types.from_typing_type(thing)
+     except ImportError:  # pragma: no cover
+         pass

@@ -1,6 +1,6 @@
 {% set pkgname = "hypothesis" %}
-{% set version = "3.56.0" %}
-{% set sha256 = "22783d189afeb14857bfedb22a8fc749dce7511f37d0af8b67875e1c812da286" %}
+{% set version = "3.56.5" %}
+{% set sha256 = "462e6adce1f5ac16acd81b71cf6ffd0febe0ece7227ef8c39ebf37c1509db527" %}
 
 package:
   name: {{ pkgname }}
@@ -10,6 +10,8 @@ source:
   fn: {{ pkgname }}-{{ version }}.tar.gz
   url: https://pypi.io/packages/source/{{ pkgname[0] }}/{{ pkgname }}/{{ pkgname }}-{{ version }}.tar.gz
   sha256: {{ sha256 }}
+  patches:
+    - 0001-Fix-typing-_ForwardRef-for-Py37.patch
 
 build:
   number: 0
