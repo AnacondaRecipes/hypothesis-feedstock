@@ -1,23 +1,23 @@
 {% set pkgname = "hypothesis" %}
 {% set version = "3.56.5" %}
-{% set sha256 = "462e6adce1f5ac16acd81b71cf6ffd0febe0ece7227ef8c39ebf37c1509db527" %}
 
 package:
   name: {{ pkgname }}
   version: {{ version }}
 
 source:
-  fn: {{ pkgname }}-{{ version }}.tar.gz
-  url: https://pypi.io/packages/source/{{ pkgname[0] }}/{{ pkgname }}/{{ pkgname }}-{{ version }}.tar.gz
-  sha256: {{ sha256 }}
+  git_url: https://github.com/HypothesisWorks/hypothesis.git
+  git_tag: {{ version }}
   patches:
-    - 0001-Fix-typing-_ForwardRef-for-Py37.patch
+    - 0001-Fix-typing-_ForwardRef-and-TypingMeta-for-Python-3.7.patch
 
 build:
-  number: 0
-  script: python setup.py install --single-version-externally-managed --record record.txt
+  number: 1
+  script: python hypothesis-python/setup.py install --single-version-externally-managed --record record.txt
 
 requirements:
+  build:
+    - git
   host:
     - python
     - setuptools
@@ -31,6 +31,8 @@ requirements:
 {% set pytestcmd = "python -m pytest -n 0 " %}  # [py35]
 
 test:
+  source_files:
+    - hypothesis-python/tests
   requires:
     - pytest-xdist
     - numpy
@@ -46,8 +48,7 @@ test:
     - hypothesis.strategies
     - hypothesis.stateful
   commands:
-    - git clone https://github.com/HypothesisWorks/hypothesis.git src
-    - cd src/hypothesis-python
+    - cd hypothesis-python
     - {{ pytestcmd }} tests/cover
     - {{ pytestcmd }} tests/datetime
     - {{ pytestcmd }} tests/fakefactory
