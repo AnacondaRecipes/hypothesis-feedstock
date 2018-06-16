@@ -1,23 +1,20 @@
 {% set pkgname = "hypothesis" %}
-{% set version = "3.56.5" %}
+{% set version = "3.59.1" %}
 
 package:
   name: {{ pkgname }}
   version: {{ version }}
 
 source:
-  git_url: https://github.com/HypothesisWorks/hypothesis.git
-  git_tag: {{ version }}
-  patches:
-    - 0001-Fix-typing-_ForwardRef-and-TypingMeta-for-Python-3.7.patch
+  # git_url: https://github.com/HypothesisWorks/hypothesis.git
+  # git_tag: {{ version }}
+  url: https://github.com/HypothesisWorks/{{ pkgname }}/archive/{{ pkgname }}-python-{{ version }}.tar.gz
 
 build:
-  number: 1
   script: python hypothesis-python/setup.py install --single-version-externally-managed --record record.txt
+  number: 0
 
 requirements:
-  build:
-    - git
   host:
     - python
     - setuptools
