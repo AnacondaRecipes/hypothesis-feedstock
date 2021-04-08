@@ -12,6 +12,8 @@ build:
   number: 0
   noarch: python
   script: {{ PYTHON }} -m pip install . --no-deps -vv
+  entry_points:
+    - hypothesis = hypothesis.extra.cli:main
 
 requirements:
   host:
@@ -21,6 +23,9 @@ requirements:
     - python >=3.6
     - attrs >=19.2.0
     - sortedcontainers >=2.1.0,<3.0.0
+    # Optional, but nice to have for the CLI tool
+    - click >=7.0
+    - black >=19.10b0
 
 test:
   requires:
@@ -39,6 +44,8 @@ test:
     - hypothesis.strategies._internal
     - hypothesis.utils
     - hypothesis.vendor
+  commands:
+    - hypothesis --help
 
 about:
   home: https://github.com/HypothesisWorks/hypothesis-python
