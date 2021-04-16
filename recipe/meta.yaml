@@ -29,8 +29,10 @@ requirements:
 
 test:
   requires:
-    - django
-    - pandas
+    # We only support Django versions with upstream support - see
+    # https://www.djangoproject.com/download/#supported-versions
+    - django >=2.2,<2.3|>=3.2,<3.3
+    - pandas >=0.25
     - setuptools 
   imports:
     - hypothesis
