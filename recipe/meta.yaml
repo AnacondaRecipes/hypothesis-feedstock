@@ -19,6 +19,8 @@ requirements:
   host:
     - python >=3.6
     - pip
+    - setuptools
+    - wheel
   run:
     - python >=3.6
     - attrs >=19.2.0
@@ -48,8 +50,8 @@ test:
     - hypothesis --help
 
 about:
-  home: https://github.com/HypothesisWorks/hypothesis-python
-  license: MPL 2.0
+  home: https://hypothesis.works/
+  license: MPL-2.0
   license_file: LICENSE.txt
   license_family: Other
   summary: 'A library for property based testing'
