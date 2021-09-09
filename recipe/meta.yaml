@@ -34,6 +34,7 @@ test:
     - django
     - pandas
     - setuptools 
+    - pip
   imports:
     - hypothesis
     - hypothesis.extra
@@ -48,6 +49,7 @@ test:
     - hypothesis.vendor
   commands:
     - hypothesis --help
+    - pip check
 
 about:
   home: https://hypothesis.works/
