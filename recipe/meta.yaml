@@ -17,9 +17,9 @@ build:
 
 requirements:
   host:
-    - python >=3.6
+    - python
     - pip
-    - setuptools
+    - setuptools >=36.2
     - wheel
   run:
     - python >=3.6
@@ -33,6 +33,8 @@ test:
   requires:
     - django
     - pandas
+    - pip
+    - python <3.10
     - setuptools 
   imports:
     - hypothesis
@@ -47,6 +49,7 @@ test:
     - hypothesis.utils
     - hypothesis.vendor
   commands:
+    - pip check
     - hypothesis --help
 
 about:
@@ -54,7 +57,7 @@ about:
   license: MPL-2.0
   license_file: LICENSE.txt
   license_family: Other
-  summary: 'A library for property based testing'
+  summary: A library for property based testing
   description: |
       Hypothesis is an advanced testing library for Python. It lets you write
       tests which are parametrized by a source of examples, and then generates
