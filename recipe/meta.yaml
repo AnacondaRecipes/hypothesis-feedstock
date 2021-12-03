@@ -1,4 +1,4 @@
-{% set version = "6.14.1" %}
+{% set version = "6.29.3" %}
 
 package:
   name: hypothesis
@@ -6,7 +6,7 @@ package:
 
 source:
   url: https://pypi.io/packages/source/h/hypothesis/hypothesis-{{ version }}.tar.gz
-  sha256: 88b0736a5691b68b8e16a4b7ee8e4c8596810c5a20989ea5b5f64870a7c25740
+  sha256: 4dc3f936cfa13431aa1a1188273a451d71a8375a5e8a04b368185f3f11398789
 
 build:
   number: 0
@@ -17,9 +17,9 @@ build:
 
 requirements:
   host:
-    - python >=3.6
+    - python
     - pip
-    - setuptools
+    - setuptools >=36.2
     - wheel
   run:
     - python >=3.6
@@ -33,6 +33,8 @@ test:
   requires:
     - django
     - pandas
+    - pip
+    - python <3.10
     - setuptools 
   imports:
     - hypothesis
@@ -47,6 +49,7 @@ test:
     - hypothesis.utils
     - hypothesis.vendor
   commands:
+    - pip check
     - hypothesis --help
 
 about:
@@ -54,7 +57,7 @@ about:
   license: MPL-2.0
   license_file: LICENSE.txt
   license_family: Other
-  summary: 'A library for property based testing'
+  summary: A library for property based testing
   description: |
       Hypothesis is an advanced testing library for Python. It lets you write
       tests which are parametrized by a source of examples, and then generates
