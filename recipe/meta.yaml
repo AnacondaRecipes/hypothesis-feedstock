@@ -37,7 +37,7 @@ test:
     - django
     - pandas
     - pip
-    - python <3.10
+    - python
     - setuptools
   imports:
     - hypothesis
