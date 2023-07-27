@@ -1,4 +1,4 @@
-{% set name = "hypothesis"}
+{% set name = "hypothesis" %}
 {% set version = "6.82.0" %}
 
 package:
