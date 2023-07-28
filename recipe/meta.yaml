@@ -1,17 +1,18 @@
-{% set version = "6.29.3" %}
+{% set name = "hypothesis" %}
+{% set version = "6.82.0" %}
 
 package:
   name: hypothesis
   version: {{ version }}
 
 source:
-  url: https://pypi.io/packages/source/h/hypothesis/hypothesis-{{ version }}.tar.gz
-  sha256: 4dc3f936cfa13431aa1a1188273a451d71a8375a5e8a04b368185f3f11398789
+  url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz
+  sha256: ffece8e40a34329e7112f7408f2c45fe587761978fdbc6f4f91bf0d683a7d4d9
 
 build:
   number: 0
-  noarch: python
-  script: {{ PYTHON }} -m pip install . --no-deps -vv
+  skip: true # [py<38]
+  script: {{ PYTHON }} -m pip install . --no-deps -vv --no-build-isolation
   entry_points:
     - hypothesis = hypothesis.extra.cli:main
 
@@ -19,27 +20,47 @@ requirements:
   host:
     - python
     - pip
-    - setuptools >=36.2
+    - setuptools >=43.0.0
     - wheel
   run:
-    - python >=3.6
+    - python
     - attrs >=19.2.0
+    - exceptiongroup  >=1.0.0  # [py<311]
     - sortedcontainers >=2.1.0,<3.0.0
     # Optional, but nice to have for the CLI tool
     - click >=7.0
     - black >=19.10b0
-
+    - rich >=9.0.0
+  run_constrained:
+    # codemods
+    - libcst >=0.3.16
+    # pytz
+    - pytz >=2014.1
+    #dateutil
+    - python-dateutil >=1.4
+    #lark
+    - lark >=0.10.1
+    #numpy
+    - numpy >=1.17.3
+    #pandas
+    - pandas >=1.1
+    #pytest
+    - pytest >=4.6
+    #dpcontracts
+    #- dpcontracts >=0.4 #Not available currently
+    #redis
+    - redis-py >=3.0.0
+    #django
+    - django >=3.2
 test:
   requires:
-    - django
     - pandas
     - pip
-    - python <3.10
-    - setuptools 
+    - python
+    - setuptools
   imports:
     - hypothesis
     - hypothesis.extra
-    - hypothesis.extra.django
     - hypothesis.extra.pandas
     - hypothesis.internal
     - hypothesis.internal.conjecture
