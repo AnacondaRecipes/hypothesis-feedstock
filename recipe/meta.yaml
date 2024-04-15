@@ -12,6 +12,8 @@ source:
 build:
   number: 0
   skip: true # [py<38]
+  # skipping win for py311 because of missing dependencies
+  skip: true # [win and py>=311]
   script: {{ PYTHON }} -m pip install . --no-deps -vv --no-build-isolation
   entry_points:
     - hypothesis = hypothesis.extra.cli:main
