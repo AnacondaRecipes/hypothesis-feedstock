@@ -12,8 +12,6 @@ source:
 build:
   number: 0
   skip: true # [py<38]
-  # skipping win for py311 because of missing dependencies
-  skip: true # [win and py>=311]
   script: {{ PYTHON }} -m pip install . --no-deps -vv --no-build-isolation
   entry_points:
     - hypothesis = hypothesis.extra.cli:main
@@ -55,7 +53,7 @@ requirements:
     #django
     - django >=3.2
     # zoneinfo
-    - tzdata>=2024.1  # [win]
+    #- tzdata >=2024.1  # [win]
     - backports.zoneinfo>=0.2.  # [py<39]
 test:
   requires:
