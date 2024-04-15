@@ -1,5 +1,5 @@
 {% set name = "hypothesis" %}
-{% set version = "6.82.0" %}
+{% set version = "6.100.1" %}
 
 package:
   name: hypothesis
@@ -7,7 +7,7 @@ package:
 
 source:
   url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz
-  sha256: ffece8e40a34329e7112f7408f2c45fe587761978fdbc6f4f91bf0d683a7d4d9
+  sha256: ebff09d7fa4f1fb6a855a812baf17e578b4481b7b70ec6d96496210d1a4c6c35
 
 build:
   number: 0
@@ -20,11 +20,11 @@ requirements:
   host:
     - python
     - pip
-    - setuptools >=43.0.0
+    - setuptools
     - wheel
   run:
     - python
-    - attrs >=19.2.0
+    - attrs >=22.2.0
     - exceptiongroup  >=1.0.0  # [py<311]
     - sortedcontainers >=2.1.0,<3.0.0
     # Optional, but nice to have for the CLI tool
@@ -52,6 +52,9 @@ requirements:
     - redis-py >=3.0.0
     #django
     - django >=3.2
+    # zoneinfo
+    - tzdata>=2024.1  # [win]
+    - backports.zoneinfo>=0.2.  # [py<39]
 test:
   requires:
     - pandas
