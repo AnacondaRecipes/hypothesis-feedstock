@@ -54,7 +54,7 @@ requirements:
     - django >=3.2
     # zoneinfo
     #- tzdata >=2024.1  # [win]
-    - backports.zoneinfo>=0.2.  # [py<39]
+    - backports.zoneinfo >=0.2.1  # [py<39]
 test:
   requires:
     - pandas
