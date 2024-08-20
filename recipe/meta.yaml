@@ -91,6 +91,8 @@ about:
   doc_url: https://hypothesis.readthedocs.io/en/latest
 
 extra:
+  skip-lints:
+    - invalid_url
   recipe-maintainers:
     - ericmjl
     - jochym
