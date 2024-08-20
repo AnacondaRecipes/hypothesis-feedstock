@@ -88,7 +88,7 @@ about:
       simple and comprehensible examples that make your tests fail. This lets
       you find more bugs in your code with less work.
   dev_url: https://github.com/HypothesisWorks/hypothesis-python
-  doc_url: https://hypothesis.readthedocs.io/
+  doc_url: https://hypothesis.readthedocs.io/en/latest
 
 extra:
   recipe-maintainers:
