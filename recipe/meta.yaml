@@ -1,5 +1,5 @@
 {% set name = "hypothesis" %}
-{% set version = "6.100.1" %}
+{% set version = "6.111.0" %}
 
 package:
   name: hypothesis
@@ -7,7 +7,7 @@ package:
 
 source:
   url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz
-  sha256: ebff09d7fa4f1fb6a855a812baf17e578b4481b7b70ec6d96496210d1a4c6c35
+  sha256: 04d0703621d9fdd61c079a4dda07babbe7ebf6d34eee6ad9484a2af0ee721801
 
 build:
   number: 0
@@ -88,9 +88,11 @@ about:
       simple and comprehensible examples that make your tests fail. This lets
       you find more bugs in your code with less work.
   dev_url: https://github.com/HypothesisWorks/hypothesis-python
-  doc_url: https://hypothesis.readthedocs.io/
+  doc_url: https://hypothesis.readthedocs.io/en/latest
 
 extra:
+  skip-lints:
+    - invalid_url
   recipe-maintainers:
     - ericmjl
     - jochym
