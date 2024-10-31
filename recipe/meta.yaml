@@ -59,14 +59,14 @@ requirements:
     - tzdata >=2024b  # [win]
 test:
   requires:
-    - pandas
+    - pandas # [not py>312] break circular dependency numpy -> hypothesis -> pandas -> numpy
     - pip
     - python
     - setuptools
   imports:
     - hypothesis
     - hypothesis.extra
-    - hypothesis.extra.pandas
+    - hypothesis.extra.pandas # [not py>312] break circular dependency numpy -> hypothesis -> pandas -> numpy
     - hypothesis.internal
     - hypothesis.internal.conjecture
     - hypothesis.internal.conjecture.shrinking
