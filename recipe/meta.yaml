@@ -1,5 +1,5 @@
 {% set name = "hypothesis" %}
-{% set version = "6.111.0" %}
+{% set version = "6.115.6" %}
 
 package:
   name: hypothesis
@@ -7,11 +7,11 @@ package:
 
 source:
   url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz
-  sha256: 04d0703621d9fdd61c079a4dda07babbe7ebf6d34eee6ad9484a2af0ee721801
+  sha256: d4db48eef183591085676783967e943bb89fef4d596f78c3e4116c61fcc63a6b
 
 build:
   number: 0
-  skip: true # [py<38]
+  skip: true # [py<39]
   script: {{ PYTHON }} -m pip install . --no-deps -vv --no-build-isolation
   entry_points:
     - hypothesis = hypothesis.extra.cli:main
@@ -41,30 +41,32 @@ requirements:
     #lark
     - lark >=0.10.1
     #numpy
-    - numpy >=1.17.3
+    - numpy >=1.19.3
     #pandas
     - pandas >=1.1
     #pytest
     - pytest >=4.6
     #dpcontracts
-    #- dpcontracts >=0.4 #Not available currently
+    - dpcontracts >=0.4
     #redis
     - redis-py >=3.0.0
+    #crosshair
+    - hypothesis-crosshair >=0.0.16
+    - crosshair-tool >=0.0.74
     #django
-    - django >=3.2
-    # zoneinfo
-    - tzdata >=2024a  # [win]
-    - backports.zoneinfo >=0.2.1  # [py<39]
+    - django >=4.2
+    #zoneinfo
+    - tzdata >=2024b  # [win]
 test:
   requires:
-    - pandas
+    - pandas # [not py>312] break circular dependency numpy -> hypothesis -> pandas -> numpy
     - pip
     - python
     - setuptools
   imports:
     - hypothesis
     - hypothesis.extra
-    - hypothesis.extra.pandas
+    - hypothesis.extra.pandas # [not py>312] break circular dependency numpy -> hypothesis -> pandas -> numpy
     - hypothesis.internal
     - hypothesis.internal.conjecture
     - hypothesis.internal.conjecture.shrinking
