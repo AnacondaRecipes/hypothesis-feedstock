@@ -51,12 +51,12 @@ requirements:
     #redis
     - redis-py >=3.0.0
     #crosshair
-    - hypothesis-crosshair >=0.0.16
-    - crosshair-tool >=0.0.74
+    - hypothesis-crosshair >=0.0.22
+    - crosshair-tool >=0.0.86
     #django
     - django >=4.2
     #zoneinfo
-    - tzdata >=2024b  # [win]
+    - tzdata >=2025.2  # [win]
 test:
   requires:
     - pandas # [not py>312] break circular dependency numpy -> hypothesis -> pandas -> numpy
