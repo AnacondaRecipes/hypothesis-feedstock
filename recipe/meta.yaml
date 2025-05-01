@@ -34,29 +34,33 @@ requirements:
   run_constrained:
     # codemods
     - libcst >=0.3.16
+    # ghostwriter
+    - black >=19.10b0
     # pytz
     - pytz >=2014.1
-    #dateutil
+    # dateutil
     - python-dateutil >=1.4
-    #lark
+    # lark
     - lark >=0.10.1
-    #numpy
+    # numpy
     - numpy >=1.19.3
-    #pandas
+    # pandas
     - pandas >=1.1
-    #pytest
+    # pytest
     - pytest >=4.6
-    #dpcontracts
+    # dpcontracts
     - dpcontracts >=0.4
-    #redis
+    # redis
     - redis-py >=3.0.0
-    #crosshair
+    # crosshair
     - hypothesis-crosshair >=0.0.22
     - crosshair-tool >=0.0.86
-    #django
-    - django >=4.2
-    #zoneinfo
+    # zoneinfo
     - tzdata >=2025.2  # [win]
+    # django
+    - django >=4.2
+    # watchdog
+    - watchdog >=4.0.0
 test:
   requires:
     - pandas # [not py>312] break circular dependency numpy -> hypothesis -> pandas -> numpy
