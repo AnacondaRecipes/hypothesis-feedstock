@@ -1,5 +1,5 @@
 {% set name = "hypothesis" %}
-{% set version = "6.115.6" %}
+{% set version = "6.131.9" %}
 
 package:
   name: hypothesis
@@ -7,7 +7,7 @@ package:
 
 source:
   url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz
-  sha256: d4db48eef183591085676783967e943bb89fef4d596f78c3e4116c61fcc63a6b
+  sha256: ee9b0e1403e1121c91921dbdc79d7f509fdb96d457a0389222d2a68d6c8a8f8e
 
 build:
   number: 0
@@ -20,7 +20,7 @@ requirements:
   host:
     - python
     - pip
-    - setuptools
+    - setuptools >=78.1.0
     - wheel
   run:
     - python
@@ -34,29 +34,33 @@ requirements:
   run_constrained:
     # codemods
     - libcst >=0.3.16
+    # ghostwriter
+    - black >=19.10b0
     # pytz
     - pytz >=2014.1
-    #dateutil
+    # dateutil
     - python-dateutil >=1.4
-    #lark
+    # lark
     - lark >=0.10.1
-    #numpy
+    # numpy
     - numpy >=1.19.3
-    #pandas
+    # pandas
     - pandas >=1.1
-    #pytest
+    # pytest
     - pytest >=4.6
-    #dpcontracts
+    # dpcontracts
     - dpcontracts >=0.4
-    #redis
+    # redis
     - redis-py >=3.0.0
-    #crosshair
-    - hypothesis-crosshair >=0.0.16
-    - crosshair-tool >=0.0.74
-    #django
+    # crosshair
+    - hypothesis-crosshair >=0.0.22
+    - crosshair-tool >=0.0.86
+    # zoneinfo
+    - python-tzdata >=2025.2  # [win]
+    # django
     - django >=4.2
-    #zoneinfo
-    - tzdata >=2024b  # [win]
+    # watchdog
+    - watchdog >=4.0.0
 test:
   requires:
     - pandas # [not py>312] break circular dependency numpy -> hypothesis -> pandas -> numpy
@@ -90,7 +94,7 @@ about:
       simple and comprehensible examples that make your tests fail. This lets
       you find more bugs in your code with less work.
   dev_url: https://github.com/HypothesisWorks/hypothesis-python
-  doc_url: https://hypothesis.readthedocs.io/en/latest
+  doc_url: https://hypothesis.readthedocs.io
 
 extra:
   skip-lints:
