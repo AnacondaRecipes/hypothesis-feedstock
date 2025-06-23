@@ -1,17 +1,17 @@
 {% set name = "hypothesis" %}
-{% set version = "6.131.9" %}
+{% set version = "6.135.14" %}
 
 package:
   name: hypothesis
   version: {{ version }}
 
 source:
-  url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz
-  sha256: ee9b0e1403e1121c91921dbdc79d7f509fdb96d457a0389222d2a68d6c8a8f8e
+  url: https://pypi.org/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz
+  sha256: 2666df50b3cc40ea08b161a5389d6a1cd5aa3cab0dd8fde0ae339389714a4f67
 
 build:
   number: 0
-  skip: true # [py<39]
+  skip: true  # [py<39]
   script: {{ PYTHON }} -m pip install . --no-deps -vv --no-build-isolation
   entry_points:
     - hypothesis = hypothesis.extra.cli:main
@@ -25,7 +25,7 @@ requirements:
   run:
     - python
     - attrs >=22.2.0
-    - exceptiongroup  >=1.0.0  # [py<311]
+    - exceptiongroup >=1.0.0  # [py<311]
     - sortedcontainers >=2.1.0,<3.0.0
     # Optional, but nice to have for the CLI tool
     - click >=7.0
@@ -53,24 +53,27 @@ requirements:
     # redis
     - redis-py >=3.0.0
     # crosshair
-    - hypothesis-crosshair >=0.0.22
-    - crosshair-tool >=0.0.86
+    - hypothesis-crosshair >=0.0.23
+    - crosshair-tool >=0.0.88
     # zoneinfo
     - python-tzdata >=2025.2  # [win]
     # django
     - django >=4.2
     # watchdog
     - watchdog >=4.0.0
+    - click >=7.0
+    - rich >=9.0.0
+
 test:
   requires:
-    - pandas # [not py>312] break circular dependency numpy -> hypothesis -> pandas -> numpy
+    - pandas  # [not py>312] break circular dependency numpy -> hypothesis -> pandas -> numpy
     - pip
     - python
     - setuptools
   imports:
     - hypothesis
     - hypothesis.extra
-    - hypothesis.extra.pandas # [not py>312] break circular dependency numpy -> hypothesis -> pandas -> numpy
+    - hypothesis.extra.pandas  # [not py>312] break circular dependency numpy -> hypothesis -> pandas -> numpy
     - hypothesis.internal
     - hypothesis.internal.conjecture
     - hypothesis.internal.conjecture.shrinking
@@ -89,10 +92,10 @@ about:
   license_family: Other
   summary: A library for property based testing
   description: |
-      Hypothesis is an advanced testing library for Python. It lets you write
-      tests which are parametrized by a source of examples, and then generates
-      simple and comprehensible examples that make your tests fail. This lets
-      you find more bugs in your code with less work.
+    Hypothesis is an advanced testing library for Python. It lets you write
+    tests which are parametrized by a source of examples, and then generates
+    simple and comprehensible examples that make your tests fail. This lets
+    you find more bugs in your code with less work.
   dev_url: https://github.com/HypothesisWorks/hypothesis-python
   doc_url: https://hypothesis.readthedocs.io
 
