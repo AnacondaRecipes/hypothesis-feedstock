@@ -34,8 +34,6 @@ requirements:
   run_constrained:
     # codemods
     - libcst >=0.3.16
-    # ghostwriter
-    - black >=19.10b0
     # pytz
     - pytz >=2014.1
     # dateutil
@@ -61,8 +59,6 @@ requirements:
     - django >=4.2
     # watchdog
     - watchdog >=4.0.0
-    - click >=7.0
-    - rich >=9.0.0
 
 test:
   requires:
@@ -86,7 +82,7 @@ test:
     - hypothesis --help
 
 about:
-  home: https://hypothesis.works/
+  home: https://hypothesis.works
   license: MPL-2.0
   license_file: LICENSE.txt
   license_family: Other
@@ -96,7 +92,7 @@ about:
     tests which are parametrized by a source of examples, and then generates
     simple and comprehensible examples that make your tests fail. This lets
     you find more bugs in your code with less work.
-  dev_url: https://github.com/HypothesisWorks/hypothesis-python
+  dev_url: https://github.com/HypothesisWorks/hypothesis/tree/master/hypothesis-python
   doc_url: https://hypothesis.readthedocs.io
 
 extra:
