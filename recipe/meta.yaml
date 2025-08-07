@@ -60,8 +60,6 @@ requirements:
     - watchdog >=4.0.0
 
 test:
-  source_files:
-    - tests
   requires:
     - pandas  # [not py>312] break circular dependency numpy -> hypothesis -> pandas -> numpy
     - pip
