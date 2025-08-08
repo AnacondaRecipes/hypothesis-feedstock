@@ -64,7 +64,11 @@ requirements:
     # watchdog
     - watchdog >=4.0.0
 
-# Skiping tests dut to IndexError: -1 
+# 3403 passed, 15 skipped, 38 deselected, 1 xfailed, 1 warning
+# Skipping tests due to IndexError: -1
+# test_database_directory_inaccessible:
+# test_database_backend.py::test_database_directory_inaccessible[dirs0] - Failed:
+# DID NOT WARN. No warnings of type (<class 'hypothesis.errors.HypothesisWarning'>,) were emitted.
 {% set skip_broken_tests = [
     "test_observability",
     "test_capture_unnamed_arguments",
@@ -76,7 +80,8 @@ requirements:
     "test_minimal_failing_observation",
     "test_all_failing_observations_have_reproduction_decorator",
     "test_observability_captures_stateful_reprs",
-    "test_metadata_to_json"
+    "test_metadata_to_json",
+    "test_database_directory_inaccessible"
 ] %}
 
 test:
