@@ -6,8 +6,13 @@ package:
   version: {{ version }}
 
 source:
-  url: https://pypi.org/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz
-  sha256: b086e644456da79ad460fdaf8fbf90a41a661e8a4076232dd4ea64cfbc0d0529
+  - url: https://pypi.org/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz
+    sha256: b086e644456da79ad460fdaf8fbf90a41a661e8a4076232dd4ea64cfbc0d0529
+
+    # tests and tests data files
+  - url: https://github.com/HypothesisWorks/{{ name }}/archive/refs/tags/{{ name }}-python-6.137.1.zip
+    sha256: 2f0a85f9b7f9d4a59f2f832582e2a84b3e994627b1a275356eb439e890a78792
+    folder: gh_src
 
 build:
   number: 0
@@ -27,7 +32,7 @@ requirements:
     - exceptiongroup >=1.0.0  # [py<311]
     - sortedcontainers >=2.1.0,<3.0.0
     # Optional, but nice to have for the CLI tool
-    - click >=7.0
+    - click >=7.0,<8.2.1 # 8.2.2 was yanked
     - black >=19.10b0
     - rich >=9.0.0
   run_constrained:
@@ -59,13 +64,31 @@ requirements:
     # watchdog
     - watchdog >=4.0.0
 
+# Skiping tests dut to IndexError: -1 
+{% set skip_broken_tests = [
+    "test_observability",
+    "test_capture_unnamed_arguments",
+    "test_failure_includes_explain_phase_comments",
+    "test_failure_includes_notes",
+    "test_normal_representation_includes_draws",
+    "test_capture_named_arguments",
+    "test_assume_has_status_reason",
+    "test_minimal_failing_observation",
+    "test_all_failing_observations_have_reproduction_decorator",
+    "test_observability_captures_stateful_reprs",
+    "test_metadata_to_json"
+] %}
+
 test:
+  source_files:
+    - gh_src/hypothesis-python
   requires:
     - pandas  # [not py>312] break circular dependency numpy -> hypothesis -> pandas -> numpy
     - pip
     - python
     - setuptools
     - pytest
+    - pexpect
   imports:
     - hypothesis
     - hypothesis.extra
@@ -94,6 +117,7 @@ test:
     - pip check
     - python -c "from importlib.metadata import version; assert(version('{{ name }}')=='{{ version }}')"
     - hypothesis --help
+    - python -m pytest -o pythonpath=gh_src/hypothesis-python gh_src/hypothesis-python/tests/cover -vv --color=yes -k "not ({{ skip_broken_tests | join(' or ') }})"
 
 about:
   home: https://hypothesis.works
