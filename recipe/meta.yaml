@@ -32,7 +32,7 @@ requirements:
     - exceptiongroup >=1.0.0  # [py<311]
     - sortedcontainers >=2.1.0,<3.0.0
     # Optional, but nice to have for the CLI tool
-    - click >=7.0,<8.2.1 # 8.2.2 was yanked
+    - click >=7.0,!=8.2.2 # 8.2.2 was yanked
     - black >=19.10b0
     - rich >=9.0.0
   run_constrained:
@@ -64,7 +64,7 @@ requirements:
     # watchdog
     - watchdog >=4.0.0
 
-# 3403 passed, 15 skipped, 38 deselected, 1 xfailed, 1 warning
+# 3403 passed, 16 skipped, 38 deselected, 1 xfailed, 1 warning
 # Skipping tests due to IndexError: -1
 # test_database_directory_inaccessible:
 # test_database_backend.py::test_database_directory_inaccessible[dirs0] - Failed:
@@ -93,6 +93,7 @@ test:
     - python
     - setuptools
     - pytest
+    - pytest-xdist
     - pexpect
   imports:
     - hypothesis
@@ -122,7 +123,7 @@ test:
     - pip check
     - python -c "from importlib.metadata import version; assert(version('{{ name }}')=='{{ version }}')"
     - hypothesis --help
-    - python -m pytest -o pythonpath=gh_src/hypothesis-python gh_src/hypothesis-python/tests/cover -vv --color=yes -k "not ({{ skip_broken_tests | join(' or ') }})"
+    - python -m pytest -o pythonpath=gh_src/hypothesis-python gh_src/hypothesis-python/tests/cover -vv --color=yes -n auto --dist=loadscope --maxfail=1 --durations=25 -k "not ({{ skip_broken_tests | join(' or ') }})"
 
 about:
   home: https://hypothesis.works
