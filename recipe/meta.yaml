@@ -91,8 +91,6 @@ test:
   requires:
     - pandas  # [not py>312] break circular dependency numpy -> hypothesis -> pandas -> numpy
     - pip
-    - python
-    - setuptools
     - pytest
     - pytest-xdist
     - pexpect
