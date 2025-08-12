@@ -10,7 +10,7 @@ source:
     sha256: b086e644456da79ad460fdaf8fbf90a41a661e8a4076232dd4ea64cfbc0d0529
 
     # tests and tests data files
-  - url: https://github.com/HypothesisWorks/{{ name }}/archive/refs/tags/{{ name }}-python-6.137.1.zip
+  - url: https://github.com/HypothesisWorks/{{ name }}/archive/refs/tags/{{ name }}-python-{{ version }}.zip
     sha256: 2f0a85f9b7f9d4a59f2f832582e2a84b3e994627b1a275356eb439e890a78792
     folder: gh_src
 
@@ -64,7 +64,6 @@ requirements:
     # watchdog
     - watchdog >=4.0.0
 
-# 3403 passed, 16 skipped, 38 deselected, 1 xfailed, 1 warning
 # Skipping tests due to IndexError: -1
 # test_database_directory_inaccessible:
 # test_database_backend.py::test_database_directory_inaccessible[dirs0] - Failed:
@@ -122,7 +121,7 @@ test:
     - pip check
     - python -c "from importlib.metadata import version; assert(version('{{ name }}')=='{{ version }}')"
     - hypothesis --help
-    - python -m pytest -o pythonpath=gh_src/hypothesis-python gh_src/hypothesis-python/tests/cover -vv --color=yes -n auto --dist=loadscope --maxfail=1 --durations=25 -k "not ({{ skip_broken_tests | join(' or ') }})"
+    - pytest -o pythonpath=gh_src/hypothesis-python gh_src/hypothesis-python/tests/cover -vv --color=yes -n auto --dist=loadscope --maxfail=1 --durations=25 -k "not ({{ skip_broken_tests | join(' or ') }})"
 
 about:
   home: https://hypothesis.works
