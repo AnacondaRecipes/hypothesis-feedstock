@@ -70,7 +70,8 @@ requirements:
     "test_observability_captures_stateful_reprs",
     "test_metadata_to_json",
     "test_database_directory_inaccessible",
-    "test_can_run_with_no_db"
+    "test_can_run_with_no_db",
+    "TestMachineWithConsumingRule"
 ] %}
 
 test:
