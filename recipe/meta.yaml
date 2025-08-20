@@ -1,5 +1,5 @@
 {% set name = "hypothesis" %}
-{% set version = "6.137.1" %}
+{% set version = "6.138.2" %}
 
 package:
   name: {{ name|lower }}
@@ -7,11 +7,11 @@ package:
 
 source:
   - url: https://pypi.org/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz
-    sha256: b086e644456da79ad460fdaf8fbf90a41a661e8a4076232dd4ea64cfbc0d0529
+    sha256: 82e3b2ac709ee3edda4aba2f4b11becfe764f51d104fcdb3e9f95aff1ac81595
 
     # tests and tests data files
   - url: https://github.com/HypothesisWorks/{{ name }}/archive/refs/tags/{{ name }}-python-{{ version }}.zip
-    sha256: 2f0a85f9b7f9d4a59f2f832582e2a84b3e994627b1a275356eb439e890a78792
+    sha256: af1c6b4b705de599718472436ab2cb4303296523e22301b02376474ad892c2b6
     folder: gh_src
 
 build:
@@ -26,42 +26,31 @@ requirements:
     - python
     - pip
     - setuptools >=78.1.0
+    - wheel
   run:
     - python
     - attrs >=22.2.0
     - exceptiongroup >=1.0.0  # [py<311]
     - sortedcontainers >=2.1.0,<3.0.0
-    # Optional, but nice to have for the CLI tool
-    - click >=7.0,!=8.2.2 # 8.2.2 was yanked
-    - black >=19.10b0
-    - rich >=9.0.0
   run_constrained:
-    # codemods
+      #-- cli tool
+    - click >=7.0,!=8.2.2 # 8.2.2 was yanked
+    - black >=20.8b0
+    - rich >=9.0.0
+      #--
     - libcst >=0.3.16
-    # pytz
     - pytz >=2014.1
-    # dateutil
     - python-dateutil >=1.4
-    # lark
     - lark >=0.10.1
-    # numpy
     - numpy >=1.19.3
-    # pandas
     - pandas >=1.1
-    # pytest
     - pytest >=4.6
-    # dpcontracts
     - dpcontracts >=0.4
-    # redis
     - redis-py >=3.0.0
-    # crosshair
     - hypothesis-crosshair >=0.0.24
     - crosshair-tool >=0.0.93
-    # zoneinfo
     - python-tzdata >=2025.2  # [win]
-    # django
     - django >=4.2
-    # watchdog
     - watchdog >=4.0.0
 
 # Skipping tests due to IndexError: -1
@@ -120,7 +109,6 @@ test:
   commands:
     - pip check
     - python -c "from importlib.metadata import version; assert(version('{{ name }}')=='{{ version }}')"
-    - hypothesis --help
     - pytest -o pythonpath=gh_src/hypothesis-python gh_src/hypothesis-python/tests/cover -vv --color=yes -n auto --dist=loadscope --maxfail=1 --durations=25 -k "not ({{ skip_broken_tests | join(' or ') }})"
 
 about:
