@@ -26,7 +26,6 @@ requirements:
     - python
     - pip
     - setuptools >=78.1.0
-    - wheel
   run:
     - python
     - attrs >=22.2.0
@@ -83,6 +82,11 @@ test:
     - pytest
     - pytest-xdist
     - pexpect
+      #-- cli tool
+    - click >=7.0,!=8.2.2 # 8.2.2 was yanked
+    - black >=20.8b0
+    - rich >=9.0.0
+      #--
   imports:
     - hypothesis
     - hypothesis.extra
@@ -110,6 +114,7 @@ test:
   commands:
     - pip check
     - python -c "from importlib.metadata import version; assert(version('{{ name }}')=='{{ version }}')"
+    - hypothesis --help
     - pytest -o pythonpath=gh_src/hypothesis-python gh_src/hypothesis-python/tests/cover -vv --color=yes -n auto --dist=loadscope --maxfail=1 --durations=25 -k "not ({{ skip_broken_tests | join(' or ') }})"
 
 about:
