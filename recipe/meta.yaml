@@ -1,5 +1,5 @@
 {% set name = "hypothesis" %}
-{% set version = "6.138.2" %}
+{% set version = "6.138.14" %}
 
 package:
   name: {{ name|lower }}
@@ -7,15 +7,15 @@ package:
 
 source:
   - url: https://pypi.org/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz
-    sha256: 82e3b2ac709ee3edda4aba2f4b11becfe764f51d104fcdb3e9f95aff1ac81595
+    sha256: 5c1aa1ce3f1094b5c04ea03476017695bda408a174330e5275e40ddd06d3307a
 
     # tests and tests data files
-  - url: https://github.com/HypothesisWorks/{{ name }}/archive/refs/tags/{{ name }}-python-{{ version }}.zip
-    sha256: af1c6b4b705de599718472436ab2cb4303296523e22301b02376474ad892c2b6
+  - url: https://github.com/HypothesisWorks/{{ name }}/archive/refs/tags/{{ name }}-python-{{ version }}.tar.gz
+    sha256: 54c4d22834341a15839e09d1defd2a3094332d231d45833de620ef718635092e
     folder: gh_src
 
 build:
-  number: 1
+  number: 0
   skip: true  # [py<39]
   script: {{ PYTHON }} -m pip install . --no-deps --no-build-isolation --ignore-installed --no-cache-dir -vv
   entry_points:
