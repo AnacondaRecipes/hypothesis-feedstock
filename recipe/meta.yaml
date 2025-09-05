@@ -31,12 +31,12 @@ requirements:
     - attrs >=22.2.0
     - exceptiongroup >=1.0.0  # [py<311]
     - sortedcontainers >=2.1.0,<3.0.0
-  run_constrained:
       #-- cli tool
     - click >=7.0,!=8.2.2 # 8.2.2 was yanked
     - black >=20.8b0
     - rich >=9.0.0
       #--
+  run_constrained:
     - libcst >=0.3.16
     - pytz >=2014.1
     - python-dateutil >=1.4
