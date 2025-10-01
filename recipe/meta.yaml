@@ -65,8 +65,7 @@ requirements:
 
 # > raise UnsatisfiedAssumption(f"failed to satisfy {where}")
 # E hypothesis.errors.UnsatisfiedAssumption: failed to satisfy assume() in do_it_all (line 80)
-{% set deselect_tests = "" %}
-{% set deselect_tests = "--deselect=gh_src/hypothesis-python/tests/cover/test_observability.py::test_observability" %}  # [py==39]
+{% set skip_tests = "test_observability" %}
 
 test:
   source_files:
@@ -107,7 +106,7 @@ test:
     - pip check
     - python -c "from importlib.metadata import version; assert(version('{{ name }}')=='{{ version }}')"
     - hypothesis --help
-    - pytest -o pythonpath=gh_src/hypothesis-python gh_src/hypothesis-python/tests/cover -vv --color=yes -n auto --dist=loadscope --maxfail=1 --durations=25 {{ deselect_tests }}
+    - pytest -o pythonpath=gh_src/hypothesis-python gh_src/hypothesis-python/tests/cover -vv --color=yes -n auto --dist=loadscope --maxfail=1 --durations=25 -k "not ({{ skip_tests }})"
 
 about:
   home: https://hypothesis.works
