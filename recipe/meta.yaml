@@ -66,8 +66,7 @@ requirements:
 # > raise UnsatisfiedAssumption(f"failed to satisfy {where}")
 # E hypothesis.errors.UnsatisfiedAssumption: failed to satisfy assume() in do_it_all (line 80)
 {% set deselect_tests = "" %}
-{% set deselect_tests = "--deselect=gh_src\hypothesis-python\tests\cover\test_observability.py::test_observability" %}  # [py==39 and osx]
-{% set deselect_tests = "--deselect=gh_src/hypothesis-python/tests/cover/test_observability.py::test_observability" %}  # [py==39 and win]
+{% set deselect_tests = "--deselect=gh_src/hypothesis-python/tests/cover/test_observability.py::test_observability" %}  # [py==39 and osx]
 
 test:
   source_files:
