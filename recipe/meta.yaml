@@ -1,5 +1,5 @@
 {% set name = "hypothesis" %}
-{% set version = "6.138.14" %}
+{% set version = "6.140.2" %}
 
 package:
   name: {{ name|lower }}
@@ -7,11 +7,11 @@ package:
 
 source:
   - url: https://pypi.org/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz
-    sha256: 5c1aa1ce3f1094b5c04ea03476017695bda408a174330e5275e40ddd06d3307a
+    sha256: b3b4a162134eeef8a992621de6c43d80e03d44704a3c3bfb5b9d0661b375b0d2
 
     # tests and tests data files
   - url: https://github.com/HypothesisWorks/{{ name }}/archive/refs/tags/{{ name }}-python-{{ version }}.tar.gz
-    sha256: 54c4d22834341a15839e09d1defd2a3094332d231d45833de620ef718635092e
+    sha256: 71ca1e59648b1b4841fe027d0727dac387b5189e73fd1f23f6635fe263401786
     folder: gh_src
 
 build:
@@ -31,66 +31,58 @@ requirements:
     - attrs >=22.2.0
     - exceptiongroup >=1.0.0  # [py<311]
     - sortedcontainers >=2.1.0,<3.0.0
-      #-- cli tool
-    - click >=7.0,!=8.2.2 # 8.2.2 was yanked
-    - black >=20.8b0
-    - rich >=9.0.0
-      #--
   run_constrained:
+    # cli
+    - click >=7.0,!=8.2.2 # 8.2.2 was yanked
+    - rich >=9.0.0
+    # ghostwriter
+    - black >=20.8b0
+    # codemods
     - libcst >=0.3.16
+    # pytz
     - pytz >=2014.1
+    # dateutil
     - python-dateutil >=1.4
+    # lark
     - lark >=0.10.1
+    # numpy
     - numpy >=1.19.3
+    # pandas
     - pandas >=1.1
-    - pytest >=4.6
+    # dpcontracts
     - dpcontracts >=0.4
+    # redis
     - redis-py >=3.0.0
-    - hypothesis-crosshair >=0.0.24
-    - crosshair-tool >=0.0.93
+    # crosshair
+    - hypothesis-crosshair >=0.0.25
+    - crosshair-tool >=0.0.95
+    # zoneinfo
     - python-tzdata >=2025.2  # [win]
+    # django
     - django >=4.2
+    # watchdog
     - watchdog >=4.0.0
 
-# Skipping tests due to IndexError: -1
-# test_database_directory_inaccessible:
-# test_database_backend.py::test_database_directory_inaccessible[dirs0] - Failed:
-# DID NOT WARN. No warnings of type (<class 'hypothesis.errors.HypothesisWarning'>,) were emitted.
-{% set skip_broken_tests = [
-    "test_observability",
-    "test_capture_unnamed_arguments",
-    "test_failure_includes_explain_phase_comments",
-    "test_failure_includes_notes",
-    "test_normal_representation_includes_draws",
-    "test_capture_named_arguments",
-    "test_assume_has_status_reason",
-    "test_minimal_failing_observation",
-    "test_all_failing_observations_have_reproduction_decorator",
-    "test_observability_captures_stateful_reprs",
-    "test_metadata_to_json",
-    "test_database_directory_inaccessible",
-    "test_can_run_with_no_db",
-    "TestMachineWithConsumingRule"
-] %}
+# > raise UnsatisfiedAssumption(f"failed to satisfy {where}")
+# E hypothesis.errors.UnsatisfiedAssumption: failed to satisfy assume() in do_it_all (line 80)
+{% set skip_tests = "test_observability" %}
 
 test:
   source_files:
     - gh_src/hypothesis-python
   requires:
-    - pandas  # [not py>312] break circular dependency numpy -> hypothesis -> pandas -> numpy
+    - pandas
     - pip
-    - pytest
+    - pytest >=4.6
     - pytest-xdist
     - pexpect
-      #-- cli tool
     - click >=7.0,!=8.2.2 # 8.2.2 was yanked
     - black >=20.8b0
     - rich >=9.0.0
-      #--
   imports:
     - hypothesis
     - hypothesis.extra
-    - hypothesis.extra.pandas  # [not py>312] break circular dependency numpy -> hypothesis -> pandas -> numpy
+    - hypothesis.extra.pandas
     - hypothesis.internal
     - hypothesis.internal.conjecture
     - hypothesis.internal.conjecture.shrinking
@@ -110,12 +102,11 @@ test:
     - hypothesis.stateful
     - hypothesis.statistics
     - hypothesis.version
-
   commands:
     - pip check
     - python -c "from importlib.metadata import version; assert(version('{{ name }}')=='{{ version }}')"
     - hypothesis --help
-    - pytest -o pythonpath=gh_src/hypothesis-python gh_src/hypothesis-python/tests/cover -vv --color=yes -n auto --dist=loadscope --maxfail=1 --durations=25 -k "not ({{ skip_broken_tests | join(' or ') }})"
+    - pytest -o pythonpath=gh_src/hypothesis-python gh_src/hypothesis-python/tests/cover -vv --color=yes -n auto --dist=loadscope --maxfail=1 --durations=25 -k "not ({{ skip_tests }})"
 
 about:
   home: https://hypothesis.works
