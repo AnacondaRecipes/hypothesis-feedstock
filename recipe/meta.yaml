@@ -1,5 +1,6 @@
 {% set name = "hypothesis" %}
-{% set version = "6.140.2" %}
+{% set version = "6.142.2" %}
+{% set skip_tests = "test_observability" %}
 
 package:
   name: {{ name|lower }}
@@ -7,16 +8,15 @@ package:
 
 source:
   - url: https://pypi.org/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz
-    sha256: b3b4a162134eeef8a992621de6c43d80e03d44704a3c3bfb5b9d0661b375b0d2
-
-    # tests and tests data files
+    sha256: c4204a2ce327e45fbaf83a2b58142a285135698dc1d08e368ae9901f06b49e64
+  # tests and tests data files
   - url: https://github.com/HypothesisWorks/{{ name }}/archive/refs/tags/{{ name }}-python-{{ version }}.tar.gz
-    sha256: 71ca1e59648b1b4841fe027d0727dac387b5189e73fd1f23f6635fe263401786
+    sha256: 48097c49c4854539405465844b26831e34de823bc0f3e2abe261fe8581a90a29
     folder: gh_src
 
 build:
   number: 0
-  skip: true  # [py<39]
+  skip: true  # [py<310]
   script: {{ PYTHON }} -m pip install . --no-deps --no-build-isolation --ignore-installed --no-cache-dir -vv
   entry_points:
     - hypothesis = hypothesis.extra.cli:main
@@ -26,6 +26,7 @@ requirements:
     - python
     - pip
     - setuptools >=78.1.0
+    - wheel
   run:
     - python
     - attrs >=22.2.0
@@ -33,7 +34,7 @@ requirements:
     - sortedcontainers >=2.1.0,<3.0.0
   run_constrained:
     # cli
-    - click >=7.0,!=8.2.2 # 8.2.2 was yanked
+    - click >=7.0
     - rich >=9.0.0
     # ghostwriter
     - black >=20.8b0
@@ -46,7 +47,7 @@ requirements:
     # lark
     - lark >=0.10.1
     # numpy
-    - numpy >=1.19.3
+    - numpy >=1.21.6
     # pandas
     - pandas >=1.1
     # dpcontracts
@@ -55,7 +56,7 @@ requirements:
     - redis-py >=3.0.0
     # crosshair
     - hypothesis-crosshair >=0.0.25
-    - crosshair-tool >=0.0.95
+    - crosshair-tool >=0.0.97
     # zoneinfo
     - python-tzdata >=2025.2  # [win]
     # django
@@ -65,8 +66,6 @@ requirements:
 
 # > raise UnsatisfiedAssumption(f"failed to satisfy {where}")
 # E hypothesis.errors.UnsatisfiedAssumption: failed to satisfy assume() in do_it_all (line 80)
-{% set skip_tests = "test_observability" %}
-
 test:
   source_files:
     - gh_src/hypothesis-python
@@ -76,7 +75,7 @@ test:
     - pytest >=4.6
     - pytest-xdist
     - pexpect
-    - click >=7.0,!=8.2.2 # 8.2.2 was yanked
+    - click >=7.0,!=8.2.2  # 8.2.2 was yanked
     - black >=20.8b0
     - rich >=9.0.0
   imports:
