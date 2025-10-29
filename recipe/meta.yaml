@@ -10,7 +10,7 @@ source:
   sha256: cc4166fbefeb10ee750d5f9397276880c6cb6877183d23d7e0fb1af88c9ee0c5
 
 build:
-  number: 0
+  number: 1
   script: {{ PYTHON }} -m pip install ./hypothesis-python --no-deps --no-build-isolation --ignore-installed --no-cache-dir -vv
   entry_points:
     - hypothesis = hypothesis.extra.cli:main
@@ -99,7 +99,6 @@ test:
     - pytest-xdist
     - pexpect
     - click >=7.0,!=8.2.2 # 8.2.2 was yanked
-    - black >=20.8b0
     - rich >=9.0.0
 
 about:
