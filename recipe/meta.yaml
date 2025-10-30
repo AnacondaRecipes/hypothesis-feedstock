@@ -99,7 +99,6 @@ test:
     - pytest-xdist
     - pexpect
     - click >=7.0,!=8.2.2 # 8.2.2 was yanked
-    - black >=20.8b0
     - rich >=9.0.0
 
 about:
