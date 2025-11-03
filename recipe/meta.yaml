@@ -91,9 +91,10 @@ test:
     - pip check
     - python -c "from importlib.metadata import version; assert(version('{{ name }}')=='{{ version }}')"
     - hypothesis --help
-    - python -m pytest -v hypothesis-python/tests/cover -vv --color=yes -n auto --dist=loadscope --maxfail=1 --durations=25 -k "not ({{ skip_tests }})"
+    # Skip testing on python 3.14 once pandas will be rebuilt
+    - python -m pytest -v hypothesis-python/tests/cover -vv --color=yes -n auto --dist=loadscope --maxfail=1 --durations=25 -k "not ({{ skip_tests }})" # [py314]
   requires:
-    - pandas
+    - pandas # [py<314]
     - pip
     - pytest >=4.6
     - pytest-xdist
