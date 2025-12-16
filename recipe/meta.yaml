@@ -1,5 +1,6 @@
 {% set name = "hypothesis" %}
-{% set version = "6.142.3" %}
+{% set version = "6.142.4" %}
+{% set skip_tests = "test_observability" %}
 
 package:
   name: {{ name|lower }}
@@ -7,10 +8,10 @@ package:
 
 source:
   url: https://github.com/HypothesisWorks/{{ name }}/archive/refs/tags/{{ name }}-python-{{ version }}.tar.gz
-  sha256: cc4166fbefeb10ee750d5f9397276880c6cb6877183d23d7e0fb1af88c9ee0c5
+  sha256: 33ebd459133cf1eacef432ad17bde768ec3381e249f52f3a240669ba1456e649
 
 build:
-  number: 2
+  number: 0
   script: {{ PYTHON }} -m pip install ./hypothesis-python --no-deps --no-build-isolation --ignore-installed --no-cache-dir -vv
   entry_points:
     - hypothesis = hypothesis.extra.cli:main
@@ -28,7 +29,7 @@ requirements:
     - sortedcontainers >=2.1.0,<3.0.0
   run_constrained:
     # cli
-    - click >=7.0,!=8.2.2 # 8.2.2 was yanked
+    - click >=7.0,!=8.2.2  # 8.2.2 was yanked
     - rich >=9.0.0
     # codemods
     - libcst >=0.3.16
@@ -60,7 +61,6 @@ requirements:
 
 # > raise UnsatisfiedAssumption(f"failed to satisfy {where}")
 # E hypothesis.errors.UnsatisfiedAssumption: failed to satisfy assume() in do_it_all (line 80)
-{% set skip_tests = "test_observability" %}
 test:
   source_files:
     - hypothesis-python/tests
@@ -98,7 +98,7 @@ test:
     - pytest >=4.6
     - pytest-xdist
     - pexpect
-    - click >=7.0,!=8.2.2 # 8.2.2 was yanked
+    - click >=7.0,!=8.2.2  # 8.2.2 was yanked
     - rich >=9.0.0
 
 about:
