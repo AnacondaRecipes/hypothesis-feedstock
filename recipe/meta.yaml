@@ -21,7 +21,6 @@ requirements:
     - python
     - pip
     - setuptools >=78.1.0
-    - wheel
   run:
     - python
     - exceptiongroup >=1.0.0  # [py<311]
