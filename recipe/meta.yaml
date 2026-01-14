@@ -112,7 +112,7 @@ about:
     tests which are parametrized by a source of examples, and then generates
     simple and comprehensible examples that make your tests fail. This lets
     you find more bugs in your code with less work.
-  dev_url: https://github.com/hypothesisWorks/hypothesis
+  dev_url: https://github.com/HypothesisWorks/hypothesis
   doc_url: https://hypothesis.readthedocs.io
 
 extra:
