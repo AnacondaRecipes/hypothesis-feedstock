@@ -24,7 +24,6 @@ requirements:
     - wheel
   run:
     - python
-    - attrs >=22.2.0
     - exceptiongroup >=1.0.0  # [py<311]
     - sortedcontainers >=2.1.0,<3.0.0
   run_constrained:
