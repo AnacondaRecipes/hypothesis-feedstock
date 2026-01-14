@@ -1,5 +1,5 @@
 {% set name = "hypothesis" %}
-{% set version = "6.142.3" %}
+{% set version = "6.148.7" %}
 
 package:
   name: {{ name|lower }}
@@ -7,10 +7,10 @@ package:
 
 source:
   url: https://github.com/HypothesisWorks/{{ name }}/archive/refs/tags/{{ name }}-python-{{ version }}.tar.gz
-  sha256: cc4166fbefeb10ee750d5f9397276880c6cb6877183d23d7e0fb1af88c9ee0c5
+  sha256: bc413dba8292a0f12d9f59619b2633e65f9fe1ff49138868315b26c38e358432
 
 build:
-  number: 2
+  number: 0
   script: {{ PYTHON }} -m pip install ./hypothesis-python --no-deps --no-build-isolation --ignore-installed --no-cache-dir -vv
   entry_points:
     - hypothesis = hypothesis.extra.cli:main
