@@ -21,6 +21,7 @@ requirements:
     - python
     - pip
     - setuptools >=78.1.0
+    - wheel
   run:
     - python
     - attrs >=22.2.0
