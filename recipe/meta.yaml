@@ -1,5 +1,5 @@
 {% set name = "hypothesis" %}
-{% set version = "6.142.3" %}
+{% set version = "6.148.7" %}
 
 package:
   name: {{ name|lower }}
@@ -7,10 +7,10 @@ package:
 
 source:
   url: https://github.com/HypothesisWorks/{{ name }}/archive/refs/tags/{{ name }}-python-{{ version }}.tar.gz
-  sha256: cc4166fbefeb10ee750d5f9397276880c6cb6877183d23d7e0fb1af88c9ee0c5
+  sha256: bc413dba8292a0f12d9f59619b2633e65f9fe1ff49138868315b26c38e358432
 
 build:
-  number: 2
+  number: 0
   script: {{ PYTHON }} -m pip install ./hypothesis-python --no-deps --no-build-isolation --ignore-installed --no-cache-dir -vv
   entry_points:
     - hypothesis = hypothesis.extra.cli:main
@@ -23,7 +23,6 @@ requirements:
     - setuptools >=78.1.0
   run:
     - python
-    - attrs >=22.2.0
     - exceptiongroup >=1.0.0  # [py<311]
     - sortedcontainers >=2.1.0,<3.0.0
   run_constrained:
@@ -49,8 +48,8 @@ requirements:
     # redis
     - redis-py >=3.0.0
     # crosshair
-    - hypothesis-crosshair >=0.0.25
-    - crosshair-tool >=0.0.97
+    - hypothesis-crosshair >=0.0.26
+    - crosshair-tool >=0.0.99
     # zoneinfo
     - python-tzdata >=2025.2  # [win]
     # django
@@ -106,13 +105,13 @@ about:
   license: MPL-2.0
   license_file: LICENSE.txt
   license_family: Other
-  summary: A library for property based testing
+  summary: The property-based testing library for Python
   description: |
     Hypothesis is an advanced testing library for Python. It lets you write
     tests which are parametrized by a source of examples, and then generates
     simple and comprehensible examples that make your tests fail. This lets
     you find more bugs in your code with less work.
-  dev_url: https://github.com/hypothesisWorks/hypothesis
+  dev_url: https://github.com/HypothesisWorks/hypothesis
   doc_url: https://hypothesis.readthedocs.io
 
 extra:
