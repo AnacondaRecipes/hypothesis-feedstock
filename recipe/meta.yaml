@@ -106,7 +106,7 @@ about:
   license: MPL-2.0
   license_file: LICENSE.txt
   license_family: Other
-  summary: A library for property based testing
+  summary: The property-based testing library for Python
   description: |
     Hypothesis is an advanced testing library for Python. It lets you write
     tests which are parametrized by a source of examples, and then generates
