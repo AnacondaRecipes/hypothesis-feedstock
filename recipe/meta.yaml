@@ -48,8 +48,8 @@ requirements:
     # redis
     - redis-py >=3.0.0
     # crosshair
-    - hypothesis-crosshair >=0.0.26
-    - crosshair-tool >=0.0.99
+    - hypothesis-crosshair >=0.0.27
+    - crosshair-tool >=0.0.101
     # zoneinfo
     - python-tzdata >=2025.2  # [win]
     # django
