@@ -1,9 +1,6 @@
 {% set name = "hypothesis" %}
 {% set version = "6.151.10" %}
-{% set skip_tests = "test_observability" %}
 
-# > raise UnsatisfiedAssumption(f"failed to satisfy {where}")
-# E hypothesis.errors.UnsatisfiedAssumption: failed to satisfy assume() in do_it_all (line 80)
 package:
   name: {{ name|lower }}
   version: {{ version }}
@@ -24,13 +21,14 @@ requirements:
     - python
     - pip
     - setuptools >=78.1.0
+    - wheel
   run:
     - python
     - exceptiongroup >=1.0.0  # [py<311]
     - sortedcontainers >=2.1.0,<3.0.0
   run_constrained:
     # cli
-    - click >=7.0,!=8.2.2  # 8.2.2 was yanked
+    - click >=7.0,!=8.2.2 # 8.2.2 was yanked
     - rich >=9.0.0
     # codemods
     - libcst >=0.3.16
@@ -52,7 +50,7 @@ requirements:
     - redis-py >=3.0.0
     # crosshair
     - hypothesis-crosshair >=0.0.27
-    - crosshair-tool >=0.0.101
+    - crosshair-tool >=0.0.102
     # zoneinfo
     - python-tzdata >=2025.3  # [win]
     # django
@@ -60,6 +58,9 @@ requirements:
     # watchdog
     - watchdog >=4.0.0
 
+# > raise UnsatisfiedAssumption(f"failed to satisfy {where}")
+# E hypothesis.errors.UnsatisfiedAssumption: failed to satisfy assume() in do_it_all (line 80)
+{% set skip_tests = "test_observability" %}
 test:
   source_files:
     - hypothesis-python/tests
@@ -97,7 +98,7 @@ test:
     - pytest >=4.6
     - pytest-xdist
     - pexpect
-    - click >=7.0,!=8.2.2  # 8.2.2 was yanked
+    - click >=7.0,!=8.2.2 # 8.2.2 was yanked
     - rich >=9.0.0
 
 about:
