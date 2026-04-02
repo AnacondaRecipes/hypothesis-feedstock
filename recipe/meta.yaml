@@ -1,5 +1,5 @@
 {% set name = "hypothesis" %}
-{% set version = "6.150.2" %}
+{% set version = "6.151.10" %}
 
 package:
   name: {{ name|lower }}
@@ -7,7 +7,7 @@ package:
 
 source:
   url: https://github.com/HypothesisWorks/{{ name }}/archive/refs/tags/{{ name }}-python-{{ version }}.tar.gz
-  sha256: 281abfc1ddd68e300be00c41f5ed52f6adfddcaa3867a3fcfef223f50d92201d
+  sha256: 9e20681f1cc0a63a816436767537ce35b1cbd6184c8685e2cd5c7d79fbfcf7e0
 
 build:
   number: 0
@@ -21,6 +21,7 @@ requirements:
     - python
     - pip
     - setuptools >=78.1.0
+    - wheel
   run:
     - python
     - exceptiongroup >=1.0.0  # [py<311]
@@ -49,7 +50,7 @@ requirements:
     - redis-py >=3.0.0
     # crosshair
     - hypothesis-crosshair >=0.0.27
-    - crosshair-tool >=0.0.101
+    - crosshair-tool >=0.0.102
     # zoneinfo
     - python-tzdata >=2025.3  # [win]
     # django
