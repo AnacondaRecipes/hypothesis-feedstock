@@ -6,7 +6,7 @@ package:
   version: {{ version }}
 
 source:
-  url: https://github.com/HypothesisWorks/{{ name }}/archive/refs/tags/{{ name }}-python-{{ version }}.tar.gz
+  url: https://github.com/HypothesisWorks/{{ name }}/archive/refs/tags/v{{ version }}.tar.gz
   sha256: 8871fa43764eeb8fa32bb6a105bc3a5c85fc63801413b7788e5552fc1e4a24ce
 
 build:
