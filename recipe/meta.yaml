@@ -62,7 +62,7 @@ requirements:
 {% set skip_tests = "test_observability" %}
 test:
   source_files:
-    - hypothesis-python/tests
+    - hypothesis/tests
   imports:
     - hypothesis
     - hypothesis.extra
@@ -90,7 +90,7 @@ test:
     - pip check
     - python -c "from importlib.metadata import version; assert(version('{{ name }}')=='{{ version }}')"
     - hypothesis --help
-    - python -m pytest -v hypothesis-python/tests/cover -vv --color=yes -n auto --dist=loadscope --maxfail=1 --durations=25 -k "not ({{ skip_tests }})"
+    - python -m pytest -v hypothesis/tests/cover -vv --color=yes -n auto --dist=loadscope --maxfail=1 --durations=25 -k "not ({{ skip_tests }})"
   requires:
     - pandas
     - pip
