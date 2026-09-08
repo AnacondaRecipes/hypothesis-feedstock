@@ -61,13 +61,9 @@ requirements:
     # watchdog
     - watchdog >=4.0.0
 
-# > raise UnsatisfiedAssumption(f"failed to satisfy {where}")
-# E hypothesis.errors.UnsatisfiedAssumption: failed to satisfy assume() in do_it_all (line 80)
-{% set skip_tests = "test_observability" %}
-# FileNotFoundError: [Errno 2] No such file or directory: 'git'
-{% set skip_tests = skip_tests + " or test_writes_gitignore_to_new_storage_dir" %}
 # E fixture 'snapshot' not found
 {% set ignore_tests = " --ignore=hypothesis/tests/cover/test_custom_reprs.py" %}
+
 test:
   source_files:
     - hypothesis/tests
@@ -98,7 +94,7 @@ test:
     - pip check
     - python -c "from importlib.metadata import version; assert(version('{{ name }}')=='{{ version }}')"
     - hypothesis --help
-    - python -m pytest -v hypothesis/tests/cover -v -n auto --dist=loadscope --maxfail=1 --durations=25 -k "not ({{ skip_tests }})" {{ ignore_tests }}
+    - python -m pytest -v hypothesis/tests/cover -v -n auto --dist=loadscope --maxfail=1 --durations=25 {{ ignore_tests }}
   requires:
     - pandas
     - pip
