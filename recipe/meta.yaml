@@ -1,5 +1,5 @@
 {% set name = "hypothesis" %}
-{% set version = "6.155.3" %}
+{% set version = "6.165.10" %}
 
 package:
   name: {{ name }}
@@ -7,21 +7,24 @@ package:
 
 source:
   url: https://github.com/HypothesisWorks/{{ name }}/archive/refs/tags/v{{ version }}.tar.gz
-  sha256: 8871fa43764eeb8fa32bb6a105bc3a5c85fc63801413b7788e5552fc1e4a24ce
+  sha256: a6f6cb7b1d78ffe4c7a8e3f88e81ce53d03b3a304e177a471d6dda0e160e668b
 
 build:
   number: 0
-  script: {{ PYTHON }} -m pip install ./hypothesis --no-deps --no-build-isolation --ignore-installed --no-cache-dir -vv
+  script: 
+    - export MATURIN_NO_INSTALL_RUST=1
+    - {{ PYTHON }} -m pip install ./hypothesis --no-deps --no-build-isolation --ignore-installed --no-cache-dir -vv
   entry_points:
     - hypothesis = hypothesis.extra.cli:main
   skip: true  # [py<310]
 
 requirements:
+  build:
+    - {{ compiler('rust') }}
   host:
     - python
     - pip
-    - setuptools >=78.1.0
-    - wheel
+    - maturin >=1.9.4,<2.0
   run:
     - python
     - exceptiongroup >=1.0.0  # [py<311]
@@ -48,10 +51,10 @@ requirements:
     # redis
     - redis-py >=3.0.0
     # crosshair
-    - hypothesis-crosshair >=0.0.28
-    - crosshair-tool >=0.0.106
+    - hypothesis-crosshair >=0.0.30
+    - crosshair-tool >=0.0.109
     # zoneinfo
-    - python-tzdata >=2026.2  # [win]
+    - python-tzdata >=2026.3  # [win]
     # django
     - django >=5.2
     # watchdog
