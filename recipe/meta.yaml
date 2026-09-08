@@ -19,6 +19,8 @@ build:
   skip: true  # [py<310]
 
 requirements:
+  build:
+    - {{ compiler('rust') }}
   host:
     - python
     - pip
