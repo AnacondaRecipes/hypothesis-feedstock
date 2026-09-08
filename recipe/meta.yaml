@@ -1,27 +1,20 @@
 {% set name = "hypothesis" %}
-{% set version = "6.165.10" %}
-{% set skip_tests = "test_observability" %}
-{% set skip_tests = skip_tests + " or test_writes_gitignore_to_new_storage_dir" %}
-{% set ignore_tests = " --ignore=hypothesis/tests/cover/test_custom_reprs.py" %}
+{% set version = "6.155.3" %}
 
-# > raise UnsatisfiedAssumption(f"failed to satisfy {where}")
-# E hypothesis.errors.UnsatisfiedAssumption: failed to satisfy assume() in do_it_all (line 80)
-# FileNotFoundError: [Errno 2] No such file or directory: 'git'
-# E fixture 'snapshot' not found
 package:
   name: {{ name }}
   version: {{ version }}
 
 source:
   url: https://github.com/HypothesisWorks/{{ name }}/archive/refs/tags/v{{ version }}.tar.gz
-  sha256: a6f6cb7b1d78ffe4c7a8e3f88e81ce53d03b3a304e177a471d6dda0e160e668b
+  sha256: 8871fa43764eeb8fa32bb6a105bc3a5c85fc63801413b7788e5552fc1e4a24ce
 
 build:
   number: 0
   script: {{ PYTHON }} -m pip install ./hypothesis --no-deps --no-build-isolation --ignore-installed --no-cache-dir -vv
   entry_points:
     - hypothesis = hypothesis.extra.cli:main
-  skip: true  # [py<37]
+  skip: true  # [py<310]
 
 requirements:
   host:
@@ -35,7 +28,7 @@ requirements:
     - sortedcontainers >=2.1.0,<3.0.0
   run_constrained:
     # cli
-    - click >=7.0,!=8.2.2  # 8.2.2 was yanked
+    - click >=7.0,!=8.2.2 # 8.2.2 was yanked
     - black >=20.8b0
     - rich >=9.0.0
     # codemods
@@ -64,6 +57,13 @@ requirements:
     # watchdog
     - watchdog >=4.0.0
 
+# > raise UnsatisfiedAssumption(f"failed to satisfy {where}")
+# E hypothesis.errors.UnsatisfiedAssumption: failed to satisfy assume() in do_it_all (line 80)
+{% set skip_tests = "test_observability" %}
+# FileNotFoundError: [Errno 2] No such file or directory: 'git'
+{% set skip_tests = skip_tests + " or test_writes_gitignore_to_new_storage_dir" %}
+# E fixture 'snapshot' not found
+{% set ignore_tests = " --ignore=hypothesis/tests/cover/test_custom_reprs.py" %}
 test:
   source_files:
     - hypothesis/tests
@@ -101,7 +101,7 @@ test:
     - pytest >=4.6
     - pytest-xdist
     - pexpect
-    - click >=7.0,!=8.2.2  # 8.2.2 was yanked
+    - click >=7.0,!=8.2.2 # 8.2.2 was yanked
     - rich >=9.0.0
 
 about:
