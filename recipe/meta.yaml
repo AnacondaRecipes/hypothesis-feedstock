@@ -20,8 +20,7 @@ requirements:
   host:
     - python
     - pip
-    - setuptools >=78.1.0
-    - wheel
+    - maturin >=1.9.4,<2.0
   run:
     - python
     - exceptiongroup >=1.0.0  # [py<311]
