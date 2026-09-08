@@ -1,5 +1,5 @@
 {% set name = "hypothesis" %}
-{% set version = "6.155.3" %}
+{% set version = "6.165.10" %}
 
 package:
   name: {{ name }}
@@ -7,7 +7,7 @@ package:
 
 source:
   url: https://github.com/HypothesisWorks/{{ name }}/archive/refs/tags/v{{ version }}.tar.gz
-  sha256: 8871fa43764eeb8fa32bb6a105bc3a5c85fc63801413b7788e5552fc1e4a24ce
+  sha256: a6f6cb7b1d78ffe4c7a8e3f88e81ce53d03b3a304e177a471d6dda0e160e668b
 
 build:
   number: 0
