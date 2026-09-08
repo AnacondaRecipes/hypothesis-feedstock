@@ -103,6 +103,7 @@ test:
     - pexpect
     - click >=7.0,!=8.2.2 # 8.2.2 was yanked
     - rich >=9.0.0
+    - git # used for test_writes_gitignore_to_new_storage_dir test
 
 about:
   home: https://hypothesis.works
