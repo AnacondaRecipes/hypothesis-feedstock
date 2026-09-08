@@ -1,5 +1,5 @@
 {% set name = "hypothesis" %}
-{% set version = "6.155.3" %}
+{% set version = "6.165.10" %}
 
 package:
   name: {{ name }}
@@ -7,21 +7,25 @@ package:
 
 source:
   url: https://github.com/HypothesisWorks/{{ name }}/archive/refs/tags/v{{ version }}.tar.gz
-  sha256: 8871fa43764eeb8fa32bb6a105bc3a5c85fc63801413b7788e5552fc1e4a24ce
+  sha256: a6f6cb7b1d78ffe4c7a8e3f88e81ce53d03b3a304e177a471d6dda0e160e668b
 
 build:
   number: 0
-  script: {{ PYTHON }} -m pip install ./hypothesis --no-deps --no-build-isolation --ignore-installed --no-cache-dir -vv
+  script: 
+    - export MATURIN_NO_INSTALL_RUST=1
+    - {{ PYTHON }} -m pip install ./hypothesis --no-deps --no-build-isolation --ignore-installed --no-cache-dir -vv
   entry_points:
     - hypothesis = hypothesis.extra.cli:main
   skip: true  # [py<310]
 
 requirements:
+  build:
+    - {{ compiler('rust') }}
+    - {{ compiler('c') }}
   host:
     - python
     - pip
-    - setuptools >=78.1.0
-    - wheel
+    - maturin >=1.9.4,<2.0
   run:
     - python
     - exceptiongroup >=1.0.0  # [py<311]
@@ -48,22 +52,18 @@ requirements:
     # redis
     - redis-py >=3.0.0
     # crosshair
-    - hypothesis-crosshair >=0.0.28
-    - crosshair-tool >=0.0.106
+    - hypothesis-crosshair >=0.0.30
+    - crosshair-tool >=0.0.109
     # zoneinfo
-    - python-tzdata >=2026.2  # [win]
+    - python-tzdata >=2026.3  # [win]
     # django
     - django >=5.2
     # watchdog
     - watchdog >=4.0.0
 
-# > raise UnsatisfiedAssumption(f"failed to satisfy {where}")
-# E hypothesis.errors.UnsatisfiedAssumption: failed to satisfy assume() in do_it_all (line 80)
-{% set skip_tests = "test_observability" %}
-# FileNotFoundError: [Errno 2] No such file or directory: 'git'
-{% set skip_tests = skip_tests + " or test_writes_gitignore_to_new_storage_dir" %}
 # E fixture 'snapshot' not found
 {% set ignore_tests = " --ignore=hypothesis/tests/cover/test_custom_reprs.py" %}
+
 test:
   source_files:
     - hypothesis/tests
@@ -94,7 +94,7 @@ test:
     - pip check
     - python -c "from importlib.metadata import version; assert(version('{{ name }}')=='{{ version }}')"
     - hypothesis --help
-    - python -m pytest -v hypothesis/tests/cover -v -n auto --dist=loadscope --maxfail=1 --durations=25 -k "not ({{ skip_tests }})" {{ ignore_tests }}
+    - python -m pytest -v hypothesis/tests/cover -v -n auto --dist=loadscope --maxfail=1 --durations=25 {{ ignore_tests }}
   requires:
     - pandas
     - pip
@@ -103,6 +103,7 @@ test:
     - pexpect
     - click >=7.0,!=8.2.2 # 8.2.2 was yanked
     - rich >=9.0.0
+    - git # used for test_writes_gitignore_to_new_storage_dir test
 
 about:
   home: https://hypothesis.works
