@@ -47,10 +47,10 @@ requirements:
     # redis
     - redis-py >=3.0.0
     # crosshair
-    - hypothesis-crosshair >=0.0.28
-    - crosshair-tool >=0.0.106
+    - hypothesis-crosshair >=0.0.30
+    - crosshair-tool >=0.0.109
     # zoneinfo
-    - python-tzdata >=2026.2  # [win]
+    - python-tzdata >=2026.3  # [win]
     # django
     - django >=5.2
     # watchdog
