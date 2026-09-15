@@ -1,22 +1,24 @@
 {% set name = "hypothesis" %}
-{% set version = "6.165.10" %}
+{% set version = "6.167.1" %}
+{% set ignore_tests = " --ignore=hypothesis/tests/cover/test_custom_reprs.py" %}
 
+# E fixture 'snapshot' not found
 package:
   name: {{ name }}
   version: {{ version }}
 
 source:
   url: https://github.com/HypothesisWorks/{{ name }}/archive/refs/tags/v{{ version }}.tar.gz
-  sha256: a6f6cb7b1d78ffe4c7a8e3f88e81ce53d03b3a304e177a471d6dda0e160e668b
+  sha256: 8e6489be789fcf5e27ffaf835107e222edfd33eb782885f07e1e8f439129f14b
 
 build:
   number: 0
-  script: 
+  script:
     - export MATURIN_NO_INSTALL_RUST=1
     - {{ PYTHON }} -m pip install ./hypothesis --no-deps --no-build-isolation --ignore-installed --no-cache-dir -vv
   entry_points:
     - hypothesis = hypothesis.extra.cli:main
-  skip: true  # [py<310]
+  skip: true  # [py<37]
 
 requirements:
   build:
@@ -32,7 +34,7 @@ requirements:
     - sortedcontainers >=2.1.0,<3.0.0
   run_constrained:
     # cli
-    - click >=7.0,!=8.2.2 # 8.2.2 was yanked
+    - click >=7.0,!=8.2.2  # 8.2.2 was yanked
     - black >=20.8b0
     - rich >=9.0.0
     # codemods
@@ -60,9 +62,6 @@ requirements:
     - django >=5.2
     # watchdog
     - watchdog >=4.0.0
-
-# E fixture 'snapshot' not found
-{% set ignore_tests = " --ignore=hypothesis/tests/cover/test_custom_reprs.py" %}
 
 test:
   source_files:
@@ -101,9 +100,9 @@ test:
     - pytest >=4.6
     - pytest-xdist
     - pexpect
-    - click >=7.0,!=8.2.2 # 8.2.2 was yanked
+    - click >=7.0,!=8.2.2  # 8.2.2 was yanked
     - rich >=9.0.0
-    - git # used for test_writes_gitignore_to_new_storage_dir test
+    - git  # used for test_writes_gitignore_to_new_storage_dir test
 
 about:
   home: https://hypothesis.works
