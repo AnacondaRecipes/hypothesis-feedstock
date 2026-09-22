@@ -1,8 +1,6 @@
 {% set name = "hypothesis" %}
 {% set version = "6.167.1" %}
-{% set ignore_tests = " --ignore=hypothesis/tests/cover/test_custom_reprs.py" %}
 
-# E fixture 'snapshot' not found
 package:
   name: {{ name }}
   version: {{ version }}
@@ -11,6 +9,8 @@ source:
   url: https://github.com/HypothesisWorks/{{ name }}/archive/refs/tags/v{{ version }}.tar.gz
   sha256: 8e6489be789fcf5e27ffaf835107e222edfd33eb782885f07e1e8f439129f14b
 
+# Upstream source:
+# https://github.com/HypothesisWorks/hypothesis/blob/v6.167.1/hypothesis/pyproject.toml
 build:
   number: 0
   script:
@@ -18,10 +18,11 @@ build:
     - {{ PYTHON }} -m pip install ./hypothesis --no-deps --no-build-isolation --ignore-installed --no-cache-dir -vv
   entry_points:
     - hypothesis = hypothesis.extra.cli:main
-  skip: true  # [py<37]
+  skip: true  # [py<310]
 
 requirements:
   build:
+    - {{ stdlib('c') }}
     - {{ compiler('rust') }}
     - {{ compiler('c') }}
   host:
@@ -49,13 +50,15 @@ requirements:
     - numpy >=1.21.6
     # pandas
     - pandas >=1.1
+    # pytest
+    - pytest >=4.6
     # dpcontracts
     - dpcontracts >=0.4
     # redis
     - redis-py >=3.0.0
     # crosshair
     - hypothesis-crosshair >=0.0.30
-    - crosshair-tool >=0.0.109
+    - crosshair-tool >=0.0.110
     # zoneinfo
     - python-tzdata >=2026.3  # [win]
     # django
@@ -63,12 +66,15 @@ requirements:
     # watchdog
     - watchdog >=4.0.0
 
+# E fixture 'snapshot' not found
+{% set ignore_tests = " --ignore=hypothesis/tests/cover/test_custom_reprs.py" %}
 test:
   source_files:
     - hypothesis/tests
   imports:
     - hypothesis
     - hypothesis.extra
+    - hypothesis.extra.django
     - hypothesis.extra.pandas
     - hypothesis.internal
     - hypothesis.internal.conjecture
@@ -118,9 +124,7 @@ about:
   dev_url: https://github.com/HypothesisWorks/hypothesis
   doc_url: https://hypothesis.readthedocs.io
 
-extra:
-  skip-lints:
-    - invalid_url
+extra:    
   recipe-maintainers:
     - ericmjl
     - jochym
