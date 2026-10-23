@@ -1,5 +1,5 @@
 {% set name = "hypothesis" %}
-{% set version = "6.167.1" %}
+{% set version = "6.170.8" %}
 
 package:
   name: {{ name }}
@@ -7,10 +7,10 @@ package:
 
 source:
   url: https://github.com/HypothesisWorks/{{ name }}/archive/refs/tags/v{{ version }}.tar.gz
-  sha256: 8e6489be789fcf5e27ffaf835107e222edfd33eb782885f07e1e8f439129f14b
+  sha256: a5d2f2e4e8e40dcd43808befefeebf5ff9dbcb19804fb993a5a50f77a9e74756
 
 # Upstream source:
-# https://github.com/HypothesisWorks/hypothesis/blob/v6.167.1/hypothesis/pyproject.toml
+# https://github.com/HypothesisWorks/hypothesis/blob/v6.170.8/hypothesis/pyproject.toml
 build:
   number: 0
   script:
@@ -18,7 +18,7 @@ build:
     - {{ PYTHON }} -m pip install ./hypothesis --no-deps --no-build-isolation --ignore-installed --no-cache-dir -vv
   entry_points:
     - hypothesis = hypothesis.extra.cli:main
-  skip: true  # [py<310]
+  skip: true  # [py<311]
 
 requirements:
   build:
@@ -31,7 +31,6 @@ requirements:
     - maturin >=1.9.4,<2.0
   run:
     - python
-    - exceptiongroup >=1.0.0  # [py<311]
     - sortedcontainers >=2.1.0,<3.0.0
   run_constrained:
     # cli
@@ -47,9 +46,9 @@ requirements:
     # lark
     - lark >=0.10.1
     # numpy
-    - numpy >=1.21.6
+    - numpy >=1.23.2
     # pandas
-    - pandas >=1.1
+    - pandas >=1.5
     # pytest
     - pytest >=4.6
     # dpcontracts
@@ -57,10 +56,10 @@ requirements:
     # redis
     - redis-py >=3.0.0
     # crosshair
-    - hypothesis-crosshair >=0.0.30
-    - crosshair-tool >=0.0.110
+    - hypothesis-crosshair >=0.0.31
+    - crosshair-tool >=0.0.111
     # zoneinfo
-    - python-tzdata >=2026.3  # [win]
+    - python-tzdata >=2026.5  # [win]
     # django
     - django >=5.2
     # watchdog
