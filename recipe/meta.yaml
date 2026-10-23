@@ -1,5 +1,5 @@
 {% set name = "hypothesis" %}
-{% set version = "6.167.1" %}
+{% set version = "6.169.0" %}
 
 package:
   name: {{ name }}
@@ -7,7 +7,7 @@ package:
 
 source:
   url: https://github.com/HypothesisWorks/{{ name }}/archive/refs/tags/v{{ version }}.tar.gz
-  sha256: 8e6489be789fcf5e27ffaf835107e222edfd33eb782885f07e1e8f439129f14b
+  sha256: 988c657c69f9ea61803436a6eb5c83a66ac3e00741cb818fb2653134258af23e
 
 # Upstream source:
 # https://github.com/HypothesisWorks/hypothesis/blob/v6.167.1/hypothesis/pyproject.toml
@@ -18,7 +18,7 @@ build:
     - {{ PYTHON }} -m pip install ./hypothesis --no-deps --no-build-isolation --ignore-installed --no-cache-dir -vv
   entry_points:
     - hypothesis = hypothesis.extra.cli:main
-  skip: true  # [py<310]
+  skip: true  # [py<37]
 
 requirements:
   build:
