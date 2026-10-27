@@ -1,16 +1,18 @@
 {% set name = "hypothesis" %}
-{% set version = "6.170.8" %}
+{% set version = "6.170.12" %}
+{% set ignore_tests = " --ignore=hypothesis/tests/cover/test_custom_reprs.py" %}
 
+# Upstream source:
+# https://github.com/HypothesisWorks/hypothesis/blob/v6.170.8/hypothesis/pyproject.toml
+# E fixture 'snapshot' not found
 package:
   name: {{ name }}
   version: {{ version }}
 
 source:
   url: https://github.com/HypothesisWorks/{{ name }}/archive/refs/tags/v{{ version }}.tar.gz
-  sha256: a5d2f2e4e8e40dcd43808befefeebf5ff9dbcb19804fb993a5a50f77a9e74756
+  sha256: 6715bffee6aaa05211e9333372c044a30302d24fb560d1b07d1bb1f3763bbe61
 
-# Upstream source:
-# https://github.com/HypothesisWorks/hypothesis/blob/v6.170.8/hypothesis/pyproject.toml
 build:
   number: 0
   script:
@@ -18,7 +20,7 @@ build:
     - {{ PYTHON }} -m pip install ./hypothesis --no-deps --no-build-isolation --ignore-installed --no-cache-dir -vv
   entry_points:
     - hypothesis = hypothesis.extra.cli:main
-  skip: true  # [py<311]
+  skip: true  # [py<37]
 
 requirements:
   build:
@@ -65,8 +67,6 @@ requirements:
     # watchdog
     - watchdog >=4.0.0
 
-# E fixture 'snapshot' not found
-{% set ignore_tests = " --ignore=hypothesis/tests/cover/test_custom_reprs.py" %}
 test:
   source_files:
     - hypothesis/tests
@@ -122,7 +122,7 @@ about:
   dev_url: https://github.com/HypothesisWorks/hypothesis
   doc_url: https://hypothesis.readthedocs.io
 
-extra:    
+extra:
   recipe-maintainers:
     - ericmjl
     - jochym
