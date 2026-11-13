@@ -1,5 +1,5 @@
 {% set name = "hypothesis" %}
-{% set version = "6.170.8" %}
+{% set version = "6.170.15" %}
 
 package:
   name: {{ name }}
@@ -7,10 +7,10 @@ package:
 
 source:
   url: https://github.com/HypothesisWorks/{{ name }}/archive/refs/tags/v{{ version }}.tar.gz
-  sha256: a5d2f2e4e8e40dcd43808befefeebf5ff9dbcb19804fb993a5a50f77a9e74756
+  sha256: 329efa69f42a47d00efa6c0f4107088f0d642a5d807f7c97da89cbd65f9d1b5e
 
 # Upstream source:
-# https://github.com/HypothesisWorks/hypothesis/blob/v6.170.8/hypothesis/pyproject.toml
+# https://github.com/HypothesisWorks/hypothesis/blob/v6.170.15/hypothesis/pyproject.toml
 build:
   number: 0
   script:
@@ -57,7 +57,7 @@ requirements:
     - redis-py >=3.0.0
     # crosshair
     - hypothesis-crosshair >=0.0.31
-    - crosshair-tool >=0.0.111
+    - crosshair-tool >=0.0.112
     # zoneinfo
     - python-tzdata >=2026.5  # [win]
     # django
