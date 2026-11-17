@@ -59,7 +59,7 @@ requirements:
     - hypothesis-crosshair >=0.0.31
     - crosshair-tool >=0.0.112
     # zoneinfo
-    - python-tzdata >=2026.5  # [win]
+    - python-tzdata >=2026.5   # [win]
     # django
     - django >=5.2
     # watchdog
