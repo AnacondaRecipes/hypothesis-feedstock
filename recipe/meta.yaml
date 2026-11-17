@@ -7,7 +7,7 @@ package:
 
 source:
   url: https://github.com/HypothesisWorks/{{ name }}/archive/refs/tags/v{{ version }}.tar.gz
-  sha256: 329efa69f42a47d00efa6c0f4107088f0d642a5d807f7c97da89cbd65f9d1b5e
+  sha256: 1ba589165aa922084643baa67f813590f2f4fe16579b5236ebeca9761437eb71
 
 # Upstream source:
 # https://github.com/HypothesisWorks/hypothesis/blob/v6.170.15/hypothesis/pyproject.toml
